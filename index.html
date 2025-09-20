@@ -3,987 +3,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Constitution Quiz</title>
+    <title>Indian Constitution MCQ Practice</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0;
-            padding: 0;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
             color: #333;
         }
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        h1 {
+        h1, h2 {
+            color: #2c3e50;
             text-align: center;
-            color: #4a5568;
+        }
+        .unit-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
             margin-bottom: 30px;
-            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .question {
             margin-bottom: 25px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
-            border-radius: 8px;
-            position: relative;
-        }
-        .question-number {
-            font-weight: bold;
-            color: #4a5568;
-            margin-bottom: 10px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
         }
         .options {
-            margin-top: 10px;
+            margin: 15px 0;
         }
         .option {
-            display: block;
+            margin: 8px 0;
             padding: 10px;
-            margin: 5px 0;
-            background: #e9ecef;
-            border-radius: 5px;
+            background-color: #e8f4fc;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background-color 0.3s;
         }
         .option:hover {
-            background: #d0d4e4;
+            background-color: #d1e8ff;
         }
-        .option.selected {
-            background: #667eea;
-            color: white;
+        .selected {
+            background-color: #aed6f1;
+            font-weight: bold;
         }
         .correct {
-            background: #48bb78 !important;
-            color: white !important;
+            background-color: #d4edda;
+            border-left-color: #28a745;
         }
         .incorrect {
-            background: #f56565 !important;
-            color: white !important;
+            background-color: #f8d7da;
+            border-left-color: #dc3545;
         }
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background 0.3s;
-        }
-        .submit-btn:hover {
-            background: #5a67d8;
-        }
-        .result {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            background: #edf2f7;
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
             display: none;
         }
-        .unit-title {
-            background: #4a5568;
+        .correct-feedback {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .incorrect-feedback {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #3498db;
             color: white;
-            padding: 10px 15px;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .score-section {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e8f4fc;
             border-radius: 8px;
-            margin: 25px 0 15px;
-            font-weight: 600;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background-color: #28a745;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .unit-selector {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .unit-btn {
+            margin: 5px;
+            padding: 8px 16px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .unit-btn.active {
+            background-color: #3498db;
+        }
+        .unit-btn:hover {
+            background-color: #5a6268;
+        }
+        .reset-btn {
+            background-color: #dc3545;
+        }
+        .reset-btn:hover {
+            background-color: #c82333;
+        }
+        .show-answer-btn {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .show-answer-btn:hover {
+            background-color: #e0a800;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Indian Constitution Quiz</h1>
-
-        <div class="unit-title">Unit 1: Making of the Indian Constitution</div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">1. What was the first step taken by the British Government to control and regulate the affairs of the East India Company in India?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Pitt’s India Act of 1784</div>
-                <div class="option" data-value="B">B. Charter Act of 1833</div>
-                <div class="option" data-value="C">C. Regulating Act of 1773</div>
-                <div class="option" data-value="D">D. Government of India Act of 1858</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">2. Which Act established the dual system of control by the British government and the East India Company?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Regulating Act of 1773</div>
-                <div class="option" data-value="B">B. Pitt’s India Act of 1784</div>
-                <div class="option" data-value="C">C. Charter Act of 1833</div>
-                <div class="option" data-value="D">D. Government of India Act of 1858</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">3. The Governor-General of Bengal was re-designated as the Governor-General of India under which Act?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Pitt’s India Act of 1784</div>
-                <div class="option" data-value="B">B. Charter Act of 1833</div>
-                <div class="option" data-value="C">C. Charter Act of 1853</div>
-                <div class="option" data-value="D">D. Government of India Act of 1858</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="D">
-            <div class="question-number">4. Which Act transferred the government and territories of the East India Company to the British Crown?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Pitt’s India Act of 1784</div>
-                <div class="option" data-value="B">B. Charter Act of 1833</div>
-                <div class="option" data-value="C">C. Charter Act of 1853</div>
-                <div class="option" data-value="D">D. Government of India Act of 1858</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">5. The Morley-Minto Reforms are associated with which Act?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Indian Councils Act of 1861</div>
-                <div class="option" data-value="B">B. Indian Councils Act of 1892</div>
-                <div class="option" data-value="C">C. Indian Councils Act of 1909</div>
-                <div class="option" data-value="D">D. Government of India Act of 1919</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">6. Which Act introduced the system of 'Dyarchy' in the provinces?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Indian Councils Act of 1909</div>
-                <div class="option" data-value="B">B. Government of India Act of 1919</div>
-                <div class="option" data-value="C">C. Government of India Act of 1935</div>
-                <div class="option" data-value="D">D. Indian Independence Act of 1947</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">7. The Simon Commission was appointed in 1927 to review the working of which Act?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Indian Councils Act of 1909</div>
-                <div class="option" data-value="B">B. Government of India Act of 1919</div>
-                <div class="option" data-value="C">C. Government of India Act of 1935</div>
-                <div class="option" data-value="D">D. Government of India Act of 1858</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">8. Which Act provided for the establishment of an All-India Federation?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Government of India Act of 1919</div>
-                <div class="option" data-value="B">B. Government of India Act of 1935</div>
-                <div class="option" data-value="C">C. Indian Independence Act of 1947</div>
-                <div class="option" data-value="D">D. Government of India Act of 1858</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">9. Who moved the historic 'Objective Resolution' in the Constituent Assembly?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Dr. B.R. Ambedkar</div>
-                <div class="option" data-value="B">B. Dr. Rajendra Prasad</div>
-                <div class="option" data-value="C">C. Jawaharlal Nehru</div>
-                <div class="option" data-value="D">D. Sardar Vallabhbhai Patel</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="D">
-            <div class="question-number">10. The Indian Independence Act of 1947 made which change to the Constituent Assembly?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. It dissolved the Assembly.</div>
-                <div class="option" data-value="B">B. It made the Assembly a fully sovereign body.</div>
-                <div class="option" data-value="C">C. It reduced the Assembly's membership to 299.</div>
-                <div class="option" data-value="D">D. Both B and C</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 2: Making of the Indian Constitution (Continued)</div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">11. Under the Cabinet Mission Plan, how were the members of the Constituent Assembly to be elected?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. By direct election based on universal adult franchise</div>
-                <div class="option" data-value="B">B. By members of the provincial legislative assemblies using proportional representation</div>
-                <div class="option" data-value="C">C. By nomination by the British Crown</div>
-                <div class="option" data-value="D">D. By election by the members of the Central Legislative Assembly</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">12. Who was elected as the temporary President of the Constituent Assembly at its first meeting?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Dr. Rajendra Prasad</div>
-                <div class="option" data-value="B">B. Jawaharlal Nehru</div>
-                <div class="option" data-value="C">C. Dr. Sachchidanand Sinha</div>
-                <div class="option" data-value="D">D. B.R. Ambedkar</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">13. Who was the Chairman of the Drafting Committee of the Constituent Assembly?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Jawaharlal Nehru</div>
-                <div class="option" data-value="B">B. Sardar Patel</div>
-                <div class="option" data-value="C">C. Dr. B.R. Ambedkar</div>
-                <div class="option" data-value="D">D. Alladi Krishnaswamy Aiyar</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">14. The Preamble to the Indian Constitution is based on which resolution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Nehru Report, 1928</div>
-                <div class="option" data-value="B">B. Objective Resolution, 1946</div>
-                <div class="option" data-value="C">C. Poona Pact, 1932</div>
-                <div class="option" data-value="D">D. Simon Commission Report, 1930</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">15. Which Amendment Act added the words 'Socialist', 'Secular', and 'Integrity' to the Preamble?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 24th Amendment Act</div>
-                <div class="option" data-value="B">B. 26th Amendment Act</div>
-                <div class="option" data-value="C">C. 42nd Amendment Act</div>
-                <div class="option" data-value="D">D. 44th Amendment Act</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">16. In which case did the Supreme Court initially hold that the Preamble is not a part of the Constitution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Kesavananda Bharati Case</div>
-                <div class="option" data-value="B">B. Berubari Case</div>
-                <div class="option" data-value="C">C. Golaknath Case</div>
-                <div class="option" data-value="D">D. Minerva Mills Case</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="A">
-            <div class="question-number">17. In which case did the Supreme Court finally hold that the Preamble is a part of the Constitution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Kesavananda Bharati Case</div>
-                <div class="option" data-value="B">B. Berubari Case</div>
-                <div class="option" data-value="C">C. Golaknath Case</div>
-                <div class="option" data-value="D">D. Minerva Mills Case</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">18. Which of the following is NOT a salient feature of the Indian Constitution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Lengthiest Written Constitution</div>
-                <div class="option" data-value="B">B. Combination of Rigidity and Flexibility</div>
-                <div class="option" data-value="C">C. Presidential System of Government</div>
-                <div class="option" data-value="D">D. Federal System with a Strong Centre</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">19. The Constitution of India was adopted on:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 26th January, 1950</div>
-                <div class="option" data-value="B">B. 26th November, 1949</div>
-                <div class="option" data-value="C">C. 15th August, 1947</div>
-                <div class="option" data-value="D">D. 9th December, 1946</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">20. The Constitution of India came into force on:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 26th November, 1949</div>
-                <div class="option" data-value="B">B. 26th January, 1950</div>
-                <div class="option" data-value="C">C. 15th August, 1947</div>
-                <div class="option" data-value="D">D. 9th December, 1946</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 3 & 4: Fundamental Rights</div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">21. In which part of the Indian Constitution are the Fundamental Rights enshrined?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Part II</div>
-                <div class="option" data-value="B">B. Part III</div>
-                <div class="option" data-value="C">C. Part IV</div>
-                <div class="option" data-value="D">D. Part IVA</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">22. Which of the following is NOT a Fundamental Right?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Right to Equality</div>
-                <div class="option" data-value="B">B. Right to Freedom</div>
-                <div class="option" data-value="C">C. Right to Property</div>
-                <div class="option" data-value="D">D. Right to Constitutional Remedies</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">23. Article 14 of the Indian Constitution guarantees:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Abolition of Untouchability</div>
-                <div class="option" data-value="B">B. Equality before Law and Equal Protection of Laws</div>
-                <div class="option" data-value="C">C. Equality of Opportunity in Public Employment</div>
-                <div class="option" data-value="D">D. Prohibition of Discrimination</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">24. Which Article abolishes untouchability?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 15</div>
-                <div class="option" data-value="B">B. Article 16</div>
-                <div class="option" data-value="C">C. Article 17</div>
-                <div class="option" data-value="D">D. Article 18</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">25. Which Article provides for 'Protection of life and personal liberty'?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 19</div>
-                <div class="option" data-value="B">B. Article 20</div>
-                <div class="option" data-value="C">C. Article 21</div>
-                <div class="option" data-value="D">D. Article 22</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">26. The 'Right to Education' for children between 6-14 years is provided under which Article?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 21</div>
-                <div class="option" data-value="B">B. Article 21A</div>
-                <div class="option" data-value="C">C. Article 45</div>
-                <div class="option" data-value="D">D. Article 51A</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">27. Which Article provides for 'Protection against arrest and detention in certain cases'?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 20</div>
-                <div class="option" data-value="B">B. Article 22</div>
-                <div class="option" data-value="C">C. Article 21</div>
-                <div class="option" data-value="D">D. Article 32</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">28. Which writ is issued to produce a person who has been detained before the court?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Mandamus</div>
-                <div class="option" data-value="B">B. Prohibition</div>
-                <div class="option" data-value="C">C. Habeas Corpus</div>
-                <div class="option" data-value="D">D. Certiorari</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">29. Which Article provides for 'Remedies for enforcement of rights conferred by this Part'?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 13</div>
-                <div class="option" data-value="B">B. Article 32</div>
-                <div class="option" data-value="C">C. Article 226</div>
-                <div class="option" data-value="D">D. Article 37</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">30. Which Article empowers the Parliament to restrict or abrogate the fundamental rights of the members of armed forces?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 32</div>
-                <div class="option" data-value="B">B. Article 33A</div>
-                <div class="option" data-value="C">C. Article 33</div>
-                <div class="option" data-value="D">D. Article 34</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 5 & 6: Directive Principles of State Policy (DPSP) and Fundamental Duties</div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">31. In which part of the Indian Constitution are the Directive Principles of State Policy (DPSP) enshrined?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Part III</div>
-                <div class="option" data-value="B">B. Part IV</div>
-                <div class="option" data-value="C">C. Part IVA</div>
-                <div class="option" data-value="D">D. Part V</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">32. The Directive Principles of State Policy are:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Justiciable and Enforceable</div>
-                <div class="option" data-value="B">B. Non-Justiciable but Fundamental in the Governance of the Country</div>
-                <div class="option" data-value="C">C. Optional Guidelines for the Judiciary</div>
-                <div class="option" data-value="D">D. Enforceable only during a National Emergency</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">33. The concept of Directive Principles of State Policy in the Indian Constitution was borrowed from the constitution of:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. USA</div>
-                <div class="option" data-value="B">B. UK</div>
-                <div class="option" data-value="C">C. Ireland</div>
-                <div class="option" data-value="D">D. Canada</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">34. Which Article directs the State to secure a social order for the promotion of welfare of the people?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 37</div>
-                <div class="option" data-value="B">B. Article 38</div>
-                <div class="option" data-value="C">C. Article 39</div>
-                <div class="option" data-value="D">D. Article 41</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">35. Which Article directs the State to secure 'Equal justice and free legal aid'?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 38</div>
-                <div class="option" data-value="B">B. Article 39A</div>
-                <div class="option" data-value="C">C. Article 41</div>
-                <div class="option" data-value="D">D. Article 44</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">36. Which Article directs the State to organize village panchayats?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 39</div>
-                <div class="option" data-value="B">B. Article 40A</div>
-                <div class="option" data-value="C">C. Article 40</div>
-                <div class="option" data-value="D">D. Article 41</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">37. Which Article directs the State to secure a Uniform Civil Code for the citizens?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 42</div>
-                <div class="option" data-value="B">B. Article 43</div>
-                <div class="option" data-value="C">C. Article 44</div>
-                <div class="option" data-value="D">D. Article 45</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">38. The Fundamental Duties were added to the Constitution by which Amendment Act?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 24th Amendment Act</div>
-                <div class="option" data-value="B">B. 26th Amendment Act</div>
-                <div class="option" data-value="C">C. 42nd Amendment Act</div>
-                <div class="option" data-value="D">D. 44th Amendment Act</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">39. In which part of the Constitution are the Fundamental Duties mentioned?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Part III</div>
-                <div class="option" data-value="B">B. Part IV</div>
-                <div class="option" data-value="C">C. Part IVA</div>
-                <div class="option" data-value="D">D. Part V</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">40. Which committee recommended the inclusion of Fundamental Duties in the Constitution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Balwantrai Mehta Committee</div>
-                <div class="option" data-value="B">B. Ashok Mehta Committee</div>
-                <div class="option" data-value="C">C. Swaran Singh Committee</div>
-                <div class="option" data-value="D">D. Sarkaria Commission</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 7 & 8: Union Government (President, Prime Minister, Council of Ministers)</div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">41. Who is the executive head of the state in India?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Prime Minister</div>
-                <div class="option" data-value="B">B. President</div>
-                <div class="option" data-value="C">C. Chief Justice of India</div>
-                <div class="option" data-value="D">D. Speaker of Lok Sabha</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">42. The President of India is elected by:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Direct election by the people</div>
-                <div class="option" data-value="B">B. An Electoral College consisting of elected members of both Houses of Parliament and elected members of State Legislative Assemblies</div>
-                <div class="option" data-value="C">C. Only the members of Lok Sabha</div>
-                <div class="option" data-value="D">D. The Prime Minister and his Cabinet</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">43. The minimum age required to be eligible for election as President of India is:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 25 years</div>
-                <div class="option" data-value="B">B. 30 years</div>
-                <div class="option" data-value="C">C. 35 years</div>
-                <div class="option" data-value="D">D. 40 years</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">44. The President of India can be removed from office by a process of:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. No-confidence motion</div>
-                <div class="option" data-value="B">B. Impeachment</div>
-                <div class="option" data-value="C">C. Recall by the electorate</div>
-                <div class="option" data-value="D">D. Order of the Supreme Court</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="A">
-            <div class="question-number">45. Who is the real executive head of the Union Government?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Prime Minister</div>
-                <div class="option" data-value="B">B. President</div>
-                <div class="option" data-value="C">C. Vice-President</div>
-                <div class="option" data-value="D">D. Speaker of Lok Sabha</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">46. The Prime Minister is appointed by:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The People</div>
-                <div class="option" data-value="B">B. The President</div>
-                <div class="option" data-value="C">C. The Lok Sabha</div>
-                <div class="option" data-value="D">D. The Leader of the Majority Party</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">47. The Council of Ministers is collectively responsible to:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The President</div>
-                <div class="option" data-value="B">B. The Rajya Sabha</div>
-                <div class="option" data-value="C">C. The Lok Sabha</div>
-                <div class="option" data-value="D">D. The Prime Minister</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">48. The principle that the advice tendered by the Council of Ministers to the President shall not be inquired into in any court is enshrined in:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 74</div>
-                <div class="option" data-value="B">B. Article 75</div>
-                <div class="option" data-value="C">C. Article 74(2)</div>
-                <div class="option" data-value="D">D. Article 78</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">49. The total number of ministers, including the Prime Minister, in the Council of Ministers cannot exceed:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 10% of the total strength of Lok Sabha</div>
-                <div class="option" data-value="B">B. 15% of the total strength of Lok Sabha</div>
-                <div class="option" data-value="C">C. 20% of the total strength of Lok Sabha</div>
-                <div class="option" data-value="D">D. There is no such limit</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">50. Who administers the oath of office to the President of India?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The Prime Minister</div>
-                <div class="option" data-value="B">B. The Speaker of Lok Sabha</div>
-                <div class="option" data-value="C">C. The Chief Justice of India</div>
-                <div class="option" data-value="D">D. The Vice-President</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 9 & 10: State Government (Governor, Chief Minister, Council of Ministers)</div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">51. The executive power of a State is vested in the:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Chief Minister</div>
-                <div class="option" data-value="B">B. Governor</div>
-                <div class="option" data-value="C">C. State Legislature</div>
-                <div class="option" data-value="D">D. Chief Justice of the High Court</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">52. The Governor of a State is appointed by:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The Chief Minister of the State</div>
-                <div class="option" data-value="B">B. The State Legislature</div>
-                <div class="option" data-value="C">C. The President</div>
-                <div class="option" data-value="D">D. The Prime Minister</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">53. Who is the real executive head of a State Government?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Governor</div>
-                <div class="option" data-value="B">B. Chief Minister</div>
-                <div class="option" data-value="C">C. Advocate General</div>
-                <div class="option" data-value="D">D. Speaker of the Legislative Assembly</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">54. The Chief Minister is appointed by:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The People of the State</div>
-                <div class="option" data-value="B">B. The State Legislature</div>
-                <div class="option" data-value="C">C. The Governor</div>
-                <div class="option" data-value="D">D. The Chief Justice of the High Court</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">55. The Council of Ministers in a State is collectively responsible to:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The Governor</div>
-                <div class="option" data-value="B">B. The State Legislative Assembly</div>
-                <div class="option" data-value="C">C. The State Legislative Council</div>
-                <div class="option" data-value="D">D. The Chief Minister</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">56. Under which Article can the Governor reserve a bill for the consideration of the President?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 163</div>
-                <div class="option" data-value="B">B. Article 200</div>
-                <div class="option" data-value="C">C. Article 201</div>
-                <div class="option" data-value="D">D. Article 356</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">57. Under which Article can the President assume to himself the functions of the State Government?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 352</div>
-                <div class="option" data-value="B">B. Article 356</div>
-                <div class="option" data-value="C">C. Article 360</div>
-                <div class="option" data-value="D">D. Article 365</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">58. The total number of ministers, including the Chief Minister, in a State cannot exceed:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 10% of the total strength of the Legislative Assembly</div>
-                <div class="option" data-value="B">B. 15% of the total strength of the Legislative Assembly</div>
-                <div class="option" data-value="C">C. 20% of the total strength of the Legislative Assembly</div>
-                <div class="option" data-value="D">D. There is no such limit</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">59. The minimum number of ministers, including the Chief Minister, in a State is:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 5</div>
-                <div class="option" data-value="B">B. 8</div>
-                <div class="option" data-value="C">C. 12</div>
-                <div class="option" data-value="D">D. 15</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">60. A minister who is not a member of the State Legislature must become a member within:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 3 months</div>
-                <div class="option" data-value="B">B. 6 months</div>
-                <div class="option" data-value="C">C. 1 year</div>
-                <div class="option" data-value="D">D. 2 years</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 11 & 12: Federalism</div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">61. The Indian Constitution describes India as a:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Federation of States</div>
-                <div class="option" data-value="B">B. Confederation of States</div>
-                <div class="option" data-value="C">C. Union of States</div>
-                <div class="option" data-value="D">D. Unitary State</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">62. The residuary powers of legislation are vested in:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The State Legislatures</div>
-                <div class="option" data-value="B">B. The Parliament</div>
-                <div class="option" data-value="C">C. The President</div>
-                <div class="option" data-value="D">D. The Supreme Court</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">63. The power to legislate on subjects in the State List can be exercised by the Parliament under certain circumstances, as provided in:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 245</div>
-                <div class="option" data-value="B">B. Article 246</div>
-                <div class="option" data-value="C">C. Article 249</div>
-                <div class="option" data-value="D">D. Article 250</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">64. The Sarkaria Commission was appointed in 1983 to examine:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The functioning of the Planning Commission</div>
-                <div class="option" data-value="B">B. Centre-State Relations</div>
-                <div class="option" data-value="C">C. The electoral system</div>
-                <div class="option" data-value="D">D. The appointment of Governors</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">65. The States Reorganisation Act, which reorganised states on a linguistic basis, was passed in:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 1947</div>
-                <div class="option" data-value="B">B. 1950</div>
-                <div class="option" data-value="C">C. 1956</div>
-                <div class="option" data-value="D">D. 1966</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="D">
-            <div class="question-number">66. The Punchhi Commission, which also examined Centre-State relations, submitted its report in:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 1988</div>
-                <div class="option" data-value="B">B. 1990</div>
-                <div class="option" data-value="C">C. 2000</div>
-                <div class="option" data-value="D">D. 2010</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">67. Which of the following is a unitary feature of the Indian Constitution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Written Constitution</div>
-                <div class="option" data-value="B">B. Bicameral Legislature</div>
-                <div class="option" data-value="C">C. Single Citizenship</div>
-                <div class="option" data-value="D">D. Division of Powers</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">68. Which of the following is a federal feature of the Indian Constitution?</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Single Constitution</div>
-                <div class="option" data-value="B">B. Independent Judiciary</div>
-                <div class="option" data-value="C">C. All-India Services</div>
-                <div class="option" data-value="D">D. Appointment of Governors by the President</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">69. The Inter-State Council was established based on the recommendations of the:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Rajamannar Committee</div>
-                <div class="option" data-value="B">B. Sarkaria Commission</div>
-                <div class="option" data-value="C">C. Punchhi Commission</div>
-                <div class="option" data-value="D">D. Administrative Reforms Commission</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">70. The Anandpur Sahib Resolution, which demanded greater state autonomy, was adopted by:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. DMK</div>
-                <div class="option" data-value="B">B. Akali Dal</div>
-                <div class="option" data-value="C">C. Communist Party of India</div>
-                <div class="option" data-value="D">D. National Conference</div>
-            </div>
-        </div>
-
-        <div class="unit-title">Unit 13 & 14: The Judiciary</div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">71. The Supreme Court of India was inaugurated on:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 15th August, 1947</div>
-                <div class="option" data-value="B">B. 26th January, 1950</div>
-                <div class="option" data-value="C">C. 28th January, 1950</div>
-                <div class="option" data-value="D">D. 26th November, 1949</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">72. The original strength of the Supreme Court (including the Chief Justice) was:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 5</div>
-                <div class="option" data-value="B">B. 8</div>
-                <div class="option" data-value="C">C. 11</div>
-                <div class="option" data-value="D">D. 15</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="D">
-            <div class="question-number">73. The current sanctioned strength of judges in the Supreme Court (including the CJI) is:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. 25</div>
-                <div class="option" data-value="B">B. 28</div>
-                <div class="option" data-value="C">C. 31</div>
-                <div class="option" data-value="D">D. 34</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">74. A judge of the Supreme Court can be removed by the President on the recommendation of:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The Chief Justice of India</div>
-                <div class="option" data-value="B">B. Parliament (by a special majority)</div>
-                <div class="option" data-value="C">C. The Prime Minister</div>
-                <div class="option" data-value="D">D. The Law Commission</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="A">
-            <div class="question-number">75. The power of the Supreme Court to issue writs for the enforcement of Fundamental Rights is under:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 32</div>
-                <div class="option" data-value="B">B. Article 131</div>
-                <div class="option" data-value="C">C. Article 136</div>
-                <div class="option" data-value="D">D. Article 143</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="D">
-            <div class="question-number">76. The advisory jurisdiction of the Supreme Court is provided under:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 32</div>
-                <div class="option" data-value="B">B. Article 131</div>
-                <div class="option" data-value="C">C. Article 136</div>
-                <div class="option" data-value="D">D. Article 143</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">77. The concept of Public Interest Litigation (PIL) in India is primarily associated with the doctrine of:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Judicial Review</div>
-                <div class="option" data-value="B">B. Stare Decisis</div>
-                <div class="option" data-value="C">C. Judicial Activism</div>
-                <div class="option" data-value="D">D. Judicial Restraint</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">78. The institution of Lok Adalat was given statutory status through:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The Constitution (42nd Amendment) Act</div>
-                <div class="option" data-value="B">B. The Legal Services Authorities Act, 1987</div>
-                <div class="option" data-value="C">C. The Civil Procedure Code</div>
-                <div class="option" data-value="D">D. The Criminal Procedure Code</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="B">
-            <div class="question-number">79. Every High Court is a court of record, as provided under:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. Article 214</div>
-                <div class="option" data-value="B">B. Article 215</div>
-                <div class="option" data-value="C">C. Article 226</div>
-                <div class="option" data-value="D">D. Article 227</div>
-            </div>
-        </div>
-
-        <div class="question" data-correct="C">
-            <div class="question-number">80. The appointment of District Judges is made by the Governor in consultation with:</div>
-            <div class="options">
-                <div class="option" data-value="A">A. The Chief Minister</div>
-                <div class="option" data-value="B">B. The State Public Service Commission</div>
-                <div class="option" data-value="C">C. The High Court</div>
-                <div class="option" data-value="D">D. The Chief Justice of India</div>
-            </div>
-        </div>
-
-        <button class="submit-btn" id="submitBtn">Submit Answers & View Score</button>
-        <div class="result" id="result"></div>
+    <h1>Indian Constitution MCQ Practice</h1>
+    <h2>Units I-III</h2>
+    
+    <div class="unit-selector">
+        <button class="unit-btn active" data-unit="all">All Units</button>
+        <button class="unit-btn" data-unit="unit1">Unit I</button>
+        <button class="unit-btn" data-unit="unit2">Unit II</button>
+        <button class="unit-btn" data-unit="unit3">Unit III</button>
+    </div>
+    
+    <div class="score-section">
+        Score: <span id="score">0</span>/<span id="total">0</span>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+    
+    <div id="questions-container">
+        <!-- Questions will be inserted here by JavaScript -->
+    </div>
+    
+    <div class="controls">
+        <button id="prev-btn">Previous</button>
+        <button id="next-btn">Next</button>
+        <button id="show-answer-btn" class="show-answer-btn">Show Answer</button>
+        <button id="reset-btn" class="reset-btn">Reset Quiz</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const options = document.querySelectorAll('.option');
-            const submitBtn = document.getElementById('submitBtn');
-            const resultDiv = document.getElementById('result');
+        // Questions data
+        const questions = [
+            // Unit I: The Constituent Assembly and the Constitution
+            {
+                unit: "unit1",
+                question: "Who was the President of the Constituent Assembly of India?",
+                options: [
+                    "Dr. B.R. Ambedkar",
+                    "Jawaharlal Nehru",
+                    "Dr. Rajendra Prasad",
+                    "Sardar Vallabhbhai Patel"
+                ],
+                correct: 2,
+                explanation: "Dr. Rajendra Prasad was elected as the President of the Constituent Assembly on December 11, 1946."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution was adopted on:",
+                options: [
+                    "January 26, 1950",
+                    "November 26, 1949",
+                    "August 15, 1947",
+                    "January 30, 1948"
+                ],
+                correct: 1,
+                explanation: "The Constitution of India was adopted on November 26, 1949, and came into effect on January 26, 1950."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a basic feature of the Indian Constitution?",
+                options: [
+                    "Federalism",
+                    "Secularism",
+                    "Presidential form of government",
+                    "Judicial review"
+                ],
+                correct: 2,
+                explanation: "India has a parliamentary form of government, not a presidential form. The President is the nominal head while the Prime Minister is the real executive head."
+            },
+            {
+                unit: "unit1",
+                question: "The Preamble of the Indian Constitution is based on the:",
+                options: [
+                    "Government of India Act, 1935",
+                    "Objective Resolution moved by Jawaharlal Nehru",
+                    "American Constitution",
+                    "British Constitution"
+                ],
+                correct: 1,
+                explanation: "The Preamble is based on the Objective Resolution introduced by Jawaharlal Nehru on December 13, 1946, which was adopted by the Constituent Assembly on January 22, 1947."
+            },
+            {
+                unit: "unit1",
+                question: "Who was the Chairman of the Drafting Committee of the Constituent Assembly?",
+                options: [
+                    "Dr. B.R. Ambedkar",
+                    "Jawaharlal Nehru",
+                    "Sardar Vallabhbhai Patel",
+                    "Dr. Rajendra Prasad"
+                ],
+                correct: 0,
+                explanation: "Dr. B.R. Ambedkar was appointed as the Chairman of the Drafting Committee on August 29, 1947."
+            },
+            {
+                unit: "unit1",
+                question: "The Constituent Assembly of India was set up under the framework of:",
+                options: [
+                    "Cabinet Mission Plan",
+                    "Mountbatten Plan",
+                    "Government of India Act, 1935",
+                    "Indian Independence Act, 1947"
+                ],
+                correct: 0,
+                explanation: "The Constituent Assembly was constituted in November 1946 under the scheme formulated by the Cabinet Mission Plan."
+            },
+            {
+                unit: "unit1",
+                question: "How many members were there in the Constituent Assembly after the partition of India?",
+                options: [
+                    "389",
+                    "299",
+                    "284",
+                    "324"
+                ],
+                correct: 2,
+                explanation: "Originally, the total strength of the Constituent Assembly was 389. After the partition of India in 1947, the membership was reduced to 299, and later the number of members who actually signed the Constitution was 284."
+            },
+            {
+                unit: "unit1",
+                question: "Which term was not included in the Preamble of the Indian Constitution adopted on November 26, 1949?",
+                options: [
+                    "Socialist",
+                    "Democratic",
+                    "Republic",
+                    "Sovereign"
+                ],
+                correct: 0,
+                explanation: "The words 'Socialist' and 'Secular' were added to the Preamble by the 42nd Constitutional Amendment Act, 1976. The original Preamble adopted in 1949 contained 'Sovereign Democratic Republic'."
+            },
+            {
+                unit: "unit1",
+                question: "The concept of 'Basic Structure' of the Constitution was propounded by the Supreme Court in which case?",
+                options: [
+                    "Golaknath case (1967)",
+                    "Kesavananda Bharati case (1973)",
+                    "Minerva Mills case (1980)",
+                    "S.R. Bommai case (1994)"
+                ],
+                correct: 1,
+                explanation: "In the landmark Kesavananda Bharati case (1973), the Supreme Court propounded the doctrine of 'Basic Structure', stating that Parliament can amend any part of the Constitution but cannot alter its basic structure."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT mentioned in the Preamble of the Indian Constitution?",
+                options: [
+                    "Liberty of thought, expression, belief, faith and worship",
+                    "Equality of status and opportunity",
+                    "Fraternity assuring the dignity of the individual",
+                    "Promotion of international peace and security"
+                ],
+                correct: 3,
+                explanation: "While the Preamble mentions justice, liberty, equality, and fraternity, it does not specifically mention 'promotion of international peace and security'. This is mentioned in Article 51 under Directive Principles of State Policy."
+            },
 
-            options.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Clear previous selection in this question
-                    const question = this.closest('.question');
-                    question.querySelectorAll('.option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    // Select this option
-                    this.classList.add('selected');
-                });
-            });
+            // Unit II: Organs of Government
+            {
+                unit: "unit2",
+                question: "The President of India is elected by:",
+                options: [
+                    "Direct election by the people",
+                    "Members of Parliament only",
+                    "Members of Parliament and State Legislative Assemblies",
+                    "Members of Lok Sabha only"
+                ],
+                correct: 2,
+                explanation: "The President is elected by an Electoral College consisting of the elected members of both Houses of Parliament and the elected members of the Legislative Assemblies of the States and Union Territories of Delhi and Puducherry."
+            },
+            {
+                unit: "unit2",
+                question: "Who appoints the Prime Minister of India?",
+                options: [
+                    "The Parliament",
+                    "The President",
+                    "The Chief Justice of India",
+                    "The People through direct election"
+                ],
+                correct: 1,
+                explanation: "The President appoints the Prime Minister. However, according to convention, the President must appoint the leader of the majority party or coalition in the Lok Sabha."
+            },
+            {
+                unit: "unit2",
+                question: "The real executive authority of the Indian Union rests with:",
+                options: [
+                    "The President",
+                    "The Prime Minister",
+                    "The Parliament",
+                    "The Supreme Court"
+                ],
+                correct: 1,
+                explanation: "The Prime Minister is the real executive head of the government, while the President is the nominal or constitutional head."
+            },
+            {
+                unit: "unit2",
+                question: "Which of the following is NOT a power of the Prime Minister?",
+                options: [
+                    "Advising the President on the appointment of ministers",
+                    "Allocating portfolios to ministers",
+                    "Dissolving the Lok Sabha",
+                    "Chairing the Cabinet meetings"
+                ],
+                correct: 2,
+                explanation: "The Prime Minister cannot dissolve the Lok Sabha. Only the President can dissolve the Lok Sabha on the advice of the Prime Minister."
+            },
+            {
+                unit: "unit2",
+                question: "The concept of 'Judicial Activism' in India refers to:",
+                options: [
+                    "Judges taking part in political activities",
+                    "Judges interpreting laws strictly according to the text",
+                    "Judges taking an active role in addressing social issues and protecting rights",
+                    "Judges refusing to hear public interest litigations"
+                ],
+                correct: 2,
+                explanation: "Judicial activism refers to judicial rulings suspected of being based on personal or political considerations rather than on existing law. In India, it often involves the judiciary taking proactive roles in protecting fundamental rights and addressing social issues, especially through Public Interest Litigation (PIL)."
+            },
+            {
+                unit: "unit2",
+                question: "The highest judicial authority in India is:",
+                options: [
+                    "Supreme Court",
+                    "High Courts",
+                    "President",
+                    "Chief Justice of India"
+                ],
+                correct: 0,
+                explanation: "The Supreme Court of India is the highest judicial authority in the country and the final court of appeal."
+            },
+            {
+                unit: "unit2",
+                question: "Which article of the Indian Constitution vests the executive power of the Union in the President?",
+                options: [
+                    "Article 52",
+                    "Article 53",
+                    "Article 74",
+                    "Article 75"
+                ],
+                correct: 1,
+                explanation: "Article 53(1) states: 'The executive power of the Union shall be vested in the President and shall be exercised by him either directly or through officers subordinate to him in accordance with this Constitution.'"
+            },
+            {
+                unit: "unit2",
+                question: "The judges of the Supreme Court are appointed by:",
+                options: [
+                    "The President in consultation with the Chief Justice of India and other judges",
+                    "The Prime Minister",
+                    "The Parliament",
+                    "The Law Ministry"
+                ],
+                correct: 0,
+                explanation: "As per Article 124, every judge of the Supreme Court is appointed by the President in consultation with such judges of the Supreme Court and High Courts as the President may deem necessary. After the Three Judges Cases, this evolved into the collegium system."
+            },
+            {
+                unit: "unit2",
+                question: "Which of the following is NOT a function of the Indian Parliament?",
+                options: [
+                    "Legislation",
+                    "Control over the executive",
+                    "Appointment of the Chief Justice of India",
+                    "Financial control"
+                ],
+                correct: 2,
+                explanation: "The Chief Justice of India is appointed by the President of India under Article 124 of the Constitution, not by the Parliament. However, Parliament can impeach judges for misconduct."
+            },
+            {
+                unit: "unit2",
+                question: "The term 'Judicial Review' in the Indian context means:",
+                options: [
+                    "Review of judgments by higher courts",
+                    "Power of the judiciary to examine the constitutionality of legislative and executive actions",
+                    "Annual review of judicial performance by the President",
+                    "Review of court procedures by the Law Commission"
+                ],
+                correct: 1,
+                explanation: "Judicial review is the power of the judiciary to examine whether legislative enactments or executive actions are in conformity with the Constitution and to declare them null and void if they violate constitutional provisions."
+            },
 
-            submitBtn.addEventListener('click', function() {
-                let correctCount = 0;
-                const totalQuestions = document.querySelectorAll('.question').length;
-
-                document.querySelectorAll('.question').forEach(question => {
-                    const selectedOption = question.querySelector('.option.selected');
-                    const correctAnswer = question.getAttribute('data-correct');
-
-                    if (selectedOption) {
-                        if (selectedOption.getAttribute('data-value') === correctAnswer) {
-                            selectedOption.classList.add('correct');
-                            correctCount++;
-                        } else {
-                            selectedOption.classList.add('incorrect');
-                            // Highlight correct answer
-                            question.querySelector(`.option[data-value="${correctAnswer}"]`).classList.add('correct');
-                        }
-                    } else {
-                        // No option selected, show correct answer
-                        question.querySelector(`.option[data-value="${correctAnswer}"]`).classList.add('correct');
-                    }
-                });
-
-                const percentage = Math.round((correctCount / totalQuestions) * 100);
-                let grade = '';
-                if (percentage >= 90) grade = 'Excellent!';
-                else if (percentage >= 75) grade = 'Very Good!';
-                else if (percentage >= 60) grade = 'Good';
-                else if (percentage >= 40) grade = 'Needs Improvement';
-                else grade = 'Poor - Please Revise';
-
-                resultDiv.innerHTML = `
-                    <p>You scored ${correctCount} out of ${totalQuestions}</p>
-                    <p>${percentage}% - ${grade}</p>
-                `;
-                resultDiv.style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-    </script>
-</body>
-</html>
+            // Unit III: Fundamental Rights and Directive Principles
+            {
+                unit: "unit3",
+                question: "Which part of the Indian Constitution contains the Fundamental Rights?",
+                options: [
+                    "Part III",
+                    "Part IV",
+                    "Part I",
+                    "Part V"
+                ],
+                correct: 0,
+                explanation: "Fundamental Rights are enshrined in Part III (Articles 12-35) of the Indian Constitution."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following is NOT a Fundamental Right?",
+                options: [
+                    "Right to Equality",
+                    "Right to Freedom of Religion",
+                    "Right to Property",
+                    "Right against Exploitation"
+                ],
+                correct: 2,
+                explanation: "Right to Property was originally a Fundamental Right under Article 31, but it was removed from the list of Fundamental Rights by the 44th Constitutional Amendment Act, 1978. It is now a legal right under Article 300A."
+            },
+            {
+                unit: "unit3",
+                question: "Directive Principles of State Policy are contained in which part of the Constitution?",
+                options: [
+                    "Part III",
+                    "Part IV",
+                    "Part V",
+                    "Part VI"
+                ],
+                correct: 1,
+                explanation: "Directive Principles of State Policy are contained in Part IV (Articles 36-51) of the Indian Constitution."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following best describes the nature of Directive Principles of State Policy?",
+                options: [
+                    "Justiciable and enforceable by courts",
+                    "Non-justiciable but fundamental in governance",
+                    "Optional guidelines for states",
+                    "Temporary provisions to be reviewed every 10 yea
