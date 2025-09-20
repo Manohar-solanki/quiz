@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Constitution MCQ Practice - 90 Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .unit-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        .options {
+            margin: 15px 0;
+        }
+        .option {
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #e8f4fc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background-color: #d1e8ff;
+        }
+        .selected {
+            background-color: #aed6f1;
+            font-weight: bold;
+        }
+        .correct {
+            background-color: #d4edda;
+            border-left-color: #28a745;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .correct-feedback {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .incorrect-feedback {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .score-section {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e8f4fc;
+            border-radius: 8px;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background-color: #28a745;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .unit-selector {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .unit-btn {
+            margin: 5px;
+            padding: 8px 16px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .unit-btn.active {
+            background-color: #3498db;
+        }
+        .unit-btn:hover {
+            background-color: #5a6268;
+        }
+        .reset-btn {
+            background-color: #dc3545;
+        }
+        .reset-btn:hover {
+            background-color: #c82333;
+        }
+        .show-answer-btn {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .show-answer-btn:hover {
+            background-color: #e0a800;
+        }
+        .timer {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px 0;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .completed-message {
+            text-align: center;
+            padding: 20px;
+            background-color: #d4edda;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Indian Constitution MCQ Practice</h1>
+    <h2>Units I-III (30 Questions Each)</h2>
+    
+    <div class="unit-selector">
+        <button class="unit-btn active" data-unit="all">All Units</button>
+        <button class="unit-btn" data-unit="unit1">Unit I: Constituent Assembly & Constitution</button>
+        <button class="unit-btn" data-unit="unit2">Unit II: Organs of Government</button>
+        <button class="unit-btn" data-unit="unit3">Unit III: Fundamental Rights & DPSP</button>
+    </div>
+    
+    <div class="score-section">
+        Score: <span id="score">0</span>/<span id="total">0</span>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+    
+    <div class="timer" id="timer">Time: 00:00</div>
+    
+    <div id="questions-container">
+        <!-- Questions will be inserted here by JavaScript -->
+    </div>
+    
+    <div class="controls">
+        <button id="prev-btn">Previous</button>
+        <button id="next-btn">Next</button>
+        <button id="show-answer-btn" class="show-answer-btn">Show Answer</button>
+        <button id="reset-btn" class="reset-btn">Reset Quiz</button>
+    </div>
+    
+    <div class="completed-message" id="completed-message">
+        <h3>Quiz Completed!</h3>
+        <p>Your final score: <span id="final-score">0</span>/<span id="final-total">0</span></p>
+        <p>Percentage: <span id="percentage">0</span>%</p>
+        <p>Time Taken: <span id="final-time">00:00</span></p>
+        <button id="restart-btn">Restart Quiz</button>
+    </div>
+
+    <script>
+        // Questions data - 30 per unit (90 total)
+        const questions = [
+            // Unit I: The Constituent Assembly and the Constitution (30 Questions)
+            {
+                unit: "unit1",
+                question: "Who was the President of the Constituent Assembly of India?",
+                options: [
+                    "Dr. B.R. Ambedkar",
+                    "Jawaharlal Nehru",
+                    "Dr. Rajendra Prasad",
+                    "Sardar Vallabhbhai Patel"
+                ],
+                correct: 2,
+                explanation: "Dr. Rajendra Prasad was elected as the President of the Constituent Assembly on December 11, 1946."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution was adopted on:",
+                options: [
+                    "January 26, 1950",
+                    "November 26, 1949",
+                    "August 15, 1947",
+                    "January 30, 1948"
+                ],
+                correct: 1,
+                explanation: "The Constitution of India was adopted on November 26, 1949, and came into effect on January 26, 1950."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a basic feature of the Indian Constitution?",
+                options: [
+                    "Federalism",
+                    "Secularism",
+                    "Presidential form of government",
+                    "Judicial review"
+                ],
+                correct: 2,
+                explanation: "India has a parliamentary form of government, not a presidential form. The President is the nominal head while the Prime Minister is the real executive head."
+            },
+            {
+                unit: "unit1",
+                question: "The Preamble of the Indian Constitution is based on the:",
+                options: [
+                    "Government of India Act, 1935",
+                    "Objective Resolution moved by Jawaharlal Nehru",
+                    "American Constitution",
+                    "British Constitution"
+                ],
+                correct: 1,
+                explanation: "The Preamble is based on the Objective Resolution introduced by Jawaharlal Nehru on December 13, 1946, which was adopted by the Constituent Assembly on January 22, 1947."
+            },
+            {
+                unit: "unit1",
+                question: "Who was the Chairman of the Drafting Committee of the Constituent Assembly?",
+                options: [
+                    "Dr. B.R. Ambedkar",
+                    "Jawaharlal Nehru",
+                    "Sardar Vallabhbhai Patel",
+                    "Dr. Rajendra Prasad"
+                ],
+                correct: 0,
+                explanation: "Dr. B.R. Ambedkar was appointed as the Chairman of the Drafting Committee on August 29, 1947."
+            },
+            {
+                unit: "unit1",
+                question: "The Constituent Assembly of India was set up under the framework of:",
+                options: [
+                    "Cabinet Mission Plan",
+                    "Mountbatten Plan",
+                    "Government of India Act, 1935",
+                    "Indian Independence Act, 1947"
+                ],
+                correct: 0,
+                explanation: "The Constituent Assembly was constituted in November 1946 under the scheme formulated by the Cabinet Mission Plan."
+            },
+            {
+                unit: "unit1",
+                question: "How many members were there in the Constituent Assembly after the partition of India?",
+                options: [
+                    "389",
+                    "299",
+                    "284",
+                    "324"
+                ],
+                correct: 2,
+                explanation: "Originally, the total strength of the Constituent Assembly was 389. After the partition of India in 1947, the membership was reduced to 299, and later the number of members who actually signed the Constitution was 284."
+            },
+            {
+                unit: "unit1",
+                question: "Which term was not included in the Preamble of the Indian Constitution adopted on November 26, 1949?",
+                options: [
+                    "Socialist",
+                    "Democratic",
+                    "Republic",
+                    "Sovereign"
+                ],
+                correct: 0,
+                explanation: "The words 'Socialist' and 'Secular' were added to the Preamble by the 42nd Constitutional Amendment Act, 1976. The original Preamble adopted in 1949 contained 'Sovereign Democratic Republic'."
+            },
+            {
+                unit: "unit1",
+                question: "The concept of 'Basic Structure' of the Constitution was propounded by the Supreme Court in which case?",
+                options: [
+                    "Golaknath case (1967)",
+                    "Kesavananda Bharati case (1973)",
+                    "Minerva Mills case (1980)",
+                    "S.R. Bommai case (1994)"
+                ],
+                correct: 1,
+                explanation: "In the landmark Kesavananda Bharati case (1973), the Supreme Court propounded the doctrine of 'Basic Structure', stating that Parliament can amend any part of the Constitution but cannot alter its basic structure."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT mentioned in the Preamble of the Indian Constitution?",
+                options: [
+                    "Liberty of thought, expression, belief, faith and worship",
+                    "Equality of status and opportunity",
+                    "Fraternity assuring the dignity of the individual",
+                    "Promotion of international peace and security"
+                ],
+                correct: 3,
+                explanation: "While the Preamble mentions justice, liberty, equality, and fraternity, it does not specifically mention 'promotion of international peace and security'. This is mentioned in Article 51 under Directive Principles of State Policy."
+            },
+            {
+                unit: "unit1",
+                question: "Who was the Constitutional Advisor to the Constituent Assembly?",
+                options: [
+                    "B.N. Rau",
+                    "B.R. Ambedkar",
+                    "Jawaharlal Nehru",
+                    "Sardar Patel"
+                ],
+                correct: 0,
+                explanation: "B.N. Rau was appointed as the Constitutional Advisor to the Constituent Assembly. He was responsible for preparing the original draft of the Constitution."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution is the:",
+                options: [
+                    "Shortest written constitution in the world",
+                    "Longest written constitution in the world",
+                    "Second longest written constitution in the world",
+                    "Third longest written constitution in the world"
+                ],
+                correct: 1,
+                explanation: "The Indian Constitution is the longest written constitution in the world. Originally, it had 395 articles, 22 parts, and 8 schedules. Currently, it has 470 articles, 25 parts, and 12 schedules."
+            },
+            {
+                unit: "unit1",
+                question: "The first meeting of the Constituent Assembly was held on:",
+                options: [
+                    "December 9, 1946",
+                    "August 15, 1947",
+                    "January 26, 1950",
+                    "November 26, 1949"
+                ],
+                correct: 0,
+                explanation: "The first meeting of the Constituent Assembly was held on December 9, 1946, in the Constitution Hall (now known as the Central Hall of Parliament)."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following sources did NOT influence the Indian Constitution?",
+                options: [
+                    "Government of India Act, 1935",
+                    "British Constitution",
+                    "US Constitution",
+                    "Constitution of China"
+                ],
+                correct: 3,
+                explanation: "The Indian Constitution drew from various sources including the Government of India Act 1935 (federal scheme, office of governor, judiciary, public service commissions), British Constitution (parliamentary government, rule of law, legislative procedure), US Constitution (fundamental rights, judicial review, independence of judiciary), but not from the Constitution of China."
+            },
+            {
+                unit: "unit1",
+                question: "The idea of the concurrent list in the Indian Constitution has been borrowed from:",
+                options: [
+                    "Australia",
+                    "Canada",
+                    "Ireland",
+                    "Germany"
+                ],
+                correct: 0,
+                explanation: "The idea of the concurrent list (where both the Union and State governments can make laws) has been borrowed from the Constitution of Australia."
+            },
+            {
+                unit: "unit1",
+                question: "The term 'Federal' appears how many times in the Indian Constitution?",
+                options: [
+                    "Once",
+                    "Twice",
+                    "Five times",
+                    "Not at all"
+                ],
+                correct: 3,
+                explanation: "The term 'Federal' does not appear anywhere in the Indian Constitution. Article 1 describes India as a 'Union of States'."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a feature of the Indian federal system?",
+                options: [
+                    "Dual government",
+                    "Written constitution",
+                    "Division of powers",
+                    "Equal representation of states in the Upper House"
+                ],
+                correct: 3,
+                explanation: "Equal representation of states in the Upper House is not a feature of the Indian federal system. In India, states have unequal representation in the Rajya Sabha based on population. This feature is found in the American federal system."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution establishes a:",
+                options: [
+                    "Sovereign Socialist Secular Democratic Republic",
+                    "Sovereign Democratic Republic",
+                    "Sovereign Socialist Democratic Republic",
+                    "Sovereign Secular Democratic Republic"
+                ],
+                correct: 0,
+                explanation: "As per the Preamble (as amended by the 42nd Amendment Act, 1976), India is a 'Sovereign Socialist Secular Democratic Republic'."
+            },
+            {
+                unit: "unit1",
+                question: "The words 'Socialist' and 'Secular' were added to the Preamble by which amendment?",
+                options: [
+                    "40th Amendment",
+                    "42nd Amendment",
+                    "44th Amendment",
+                    "73rd Amendment"
+                ],
+                correct: 1,
+                explanation: "The words 'Socialist' and 'Secular' were added to the Preamble by the 42nd Constitutional Amendment Act, 1976 during the Emergency period."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a characteristic of the Indian Constitution?",
+                options: [
+                    "It is a written constitution",
+                    "It is flexible",
+                    "It is partly rigid and partly flexible",
+                    "It establishes a parliamentary form of government"
+                ],
+                correct: 1,
+                explanation: "The Indian Constitution is not purely flexible. It is partly rigid and partly flexible, meaning some provisions can be amended by simple majority, some by special majority, and some by special majority plus consent of states."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution was enacted by:",
+                options: [
+                    "British Parliament",
+                    "Constituent Assembly",
+                    "Indian National Congress",
+                    "Cabinet Mission"
+                ],
+                correct: 1,
+                explanation: "The Indian Constitution was enacted (adopted) by the Constituent Assembly on November 26, 1949."
+            },
+            {
+                unit: "unit1",
+                question: "The concept of 'Procedure established by law' in the Indian Constitution is borrowed from:",
+                options: [
+                    "British Constitution",
+                    "US Constitution",
+                    "Japanese Constitution",
+                    "Canadian Constitution"
+                ],
+                correct: 2,
+                explanation: "The concept of 'Procedure established by law' (Article 21) is borrowed from the Japanese Constitution. This is different from the American concept of 'Due process of law'."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a salient feature of the Indian Constitution?",
+                options: [
+                    "Single citizenship",
+                    "Integrated judiciary",
+                    "Dual citizenship",
+                    "Fundamental duties"
+                ],
+                correct: 2,
+                explanation: "The Indian Constitution provides for single citizenship, meaning all Indians are citizens of India only, not of individual states. Dual citizenship is not a feature of the Indian Constitution."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution contains how many schedules at present?",
+                options: [
+                    "8",
+                    "10",
+                    "12",
+                    "14"
+                ],
+                correct: 2,
+                explanation: "Originally, the Indian Constitution had 8 schedules. Currently, it has 12 schedules after various amendments."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution establishes a parliamentary system at both the Centre and States based on the model of:",
+                options: [
+                    "United States of America",
+                    "United Kingdom",
+                    "Canada",
+                    "Australia"
+                ],
+                correct: 1,
+                explanation: "The parliamentary system in India (at both Centre and States) is based on the British model, characterized by the presence of a nominal executive (President/Governor) and a real executive (Prime Minister/Chief Minister)."
+            },
+            {
+                unit: "unit1",
+                question: "The concept of 'Directive Principles of State Policy' in the Indian Constitution has been borrowed from:",
+                options: [
+                    "Irish Constitution",
+                    "Canadian Constitution",
+                    "Weimar Constitution of Germany",
+                    "Australian Constitution"
+                ],
+                correct: 0,
+                explanation: "The concept of Directive Principles of State Policy has been borrowed from the Irish Constitution of 1937, which had copied it from the Spanish Constitution."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a basic feature of the Indian Constitution as per the 'Basic Structure Doctrine'?",
+                options: [
+                    "Supremacy of the Constitution",
+                    "Republican and Democratic form of government",
+                    "Secular character of the Constitution",
+                    "Unlimited power of Parliament to amend the Constitution"
+                ],
+                correct: 3,
+                explanation: "The 'Basic Structure Doctrine' established in the Kesavananda Bharati case (1973) specifically limits the power of Parliament to amend the Constitution. Parliament cannot amend the basic structure of the Constitution."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution is a blend of rigidity and flexibility because:",
+                options: [
+                    "It is the longest written constitution",
+                    "Different provisions require different amendment procedures",
+                    "It has borrowed features from various constitutions",
+                    "It establishes a federal system with unitary bias"
+                ],
+                correct: 1,
+                explanation: "The Indian Constitution is a blend of rigidity and flexibility because different provisions require different amendment procedures - some can be amended by simple majority, some by special majority, and some by special majority plus consent of half of the state legislatures."
+            },
+            {
+                unit: "unit1",
+                question: "Which of the following is NOT a source of the Indian Constitution?",
+                options: [
+                    "Government of India Act, 1935",
+                    "French Constitution",
+                    "Soviet Constitution",
+                    "Japanese Constitution"
+                ],
+                correct: 1,
+                explanation: "While the Indian Constitution borrowed from various sources including the Government of India Act 1935 (administrative details), Soviet Constitution (Fundamental Duties), and Japanese Constitution ('Procedure established by law'), it did not borrow from the French Constitution."
+            },
+            {
+                unit: "unit1",
+                question: "The Indian Constitution establishes 'a federal system with a strong centralizing tendency' because:",
+                options: [
+                    "States have no independent constitutional existence",
+                    "Centre can override states in various situations",
+                    "Single citizenship",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "The Indian Constitution establishes 'a federal system with a strong centralizing tendency' due to several factors: states have no independent constitutional existence (they are indestructible but their boundaries can be altered by the Centre), Centre can override states in various situations (President's Rule, during emergencies), single citizenship, integrated judiciary, all-India services, etc."
+            },
+
+            // Unit II: Organs of Government (30 Questions)
+            {
+                unit: "unit2",
+                question: "The President of India is elected by:",
+                options: [
+                    "Direct election by the people",
+                    "Members of Parliament only",
+                    "Members of Parliament and State Legislative Assemblies",
+                    "Members of Lok Sabha only"
+                ],
+                correct: 2,
+                explanation: "The President is elected by an Electoral College consisting of the elected members of both Houses of Parliament and the elected members of the Legislative Assemblies of the States and Union Territories of Delhi and Puducherry."
+            },
+            {
+                unit: "unit2",
+                question: "Who appoints the Prime Minister of India?",
+                options: [
+                    "The Parliament",
+                    "The President",
+                    "The Chief Justice of India",
+                    "The People through direct election"
+                ],
+                correct: 1,
+                explanation: "The President appoints the Prime Minister. However, according to convention, the President must appoint the leader of the majority party or coalition in the Lok Sabha."
+            },
+            {
+                unit: "unit2",
+                question: "The real executive authority of the Indian Union rests with:",
+                options: [
+                    "The President",
+                    "The Prime Minister",
+                    "The Parliament",
+                    "The Supreme Court"
+                ],
+                correct: 1,
+                explanation: "The Prime Minister is the real executive head of the government, while the President is the nominal or constitutional head."
+            },
+            {
+                unit: "unit2",
+                question: "Which of the following is NOT a power of the Prime Minister?",
+                options: [
+                    "Advising the President on the appointment of ministers",
+                    "Allocating portfolios to ministers",
+                    "Dissolving the Lok Sabha",
+                    "Chairing the Cabinet meetings"
+                ],
+                correct: 2,
+                explanation: "The Prime Minister cannot dissolve the Lok Sabha. Only the President can dissolve the Lok Sabha on the advice of the Prime Minister."
+            },
+            {
+                unit: "unit2",
+                question: "The concept of 'Judicial Activism' in India refers to:",
+                options: [
+                    "Judges taking part in political activities",
+                    "Judges interpreting laws strictly according to the text",
+                    "Judges taking an active role in addressing social issues and protecting rights",
+                    "Judges refusing to hear public interest litigations"
+                ],
+                correct: 2,
+                explanation: "Judicial activism refers to judicial rulings suspected of being based on personal or political considerations rather than on existing law. In India, it often involves the judiciary taking proactive roles in protecting fundamental rights and addressing social issues, especially through Public Interest Litigation (PIL)."
+            },
+            {
+                unit: "unit2",
+                question: "The highest judicial authority in India is:",
+                options: [
+                    "Supreme Court",
+                    "High Courts",
+                    "President",
+                    "Chief Justice of India"
+                ],
+                correct: 0,
+                explanation: "The Supreme Court of India is the highest judicial authority in the country and the final court of appeal."
+            },
+            {
+                unit: "unit2",
+                question: "Which article of the Indian Constitution vests the executive power of the Union in the President?",
+                options: [
+                    "Article 52",
+                    "Article 53",
+                    "Article 74",
+                    "Article 75"
+                ],
+                correct: 1,
+                explanation: "Article 53(1) states: 'The executive power of the Union shall be vested in the President and shall be exercised by him either directly or through officers subordinate to him in accordance with this Constitution.'"
+            },
+            {
+                unit: "unit2",
+                question: "The judges of the Supreme Court are appointed by:",
+                options: [
+                    "The President in consultation with the Chief Justice of India and other judges",
+                    "The Prime Minister",
+                    "The Parliament",
+                    "The Law Ministry"
+                ],
+                correct: 0,
+                explanation: "As per Article 124, every judge of the Supreme Court is appointed by the President in consultation with such judges of the Supreme Court and High Courts as the President may deem necessary. After the Three Judges Cases, this evolved into the collegium system."
+            },
+            {
+                unit: "unit2",
+                question: "Which of the following is NOT a function of the Indian Parliament?",
+                options: [
+                    "Legislation",
+                    "Control over the executive",
+                    "Appointment of the Chief Justice of India",
+                    "Financial control"
+                ],
+                correct: 2,
+                explanation: "The Chief Justice of India is appointed by the President of India under Article 124 of the Constitution, not by the Parliament. However, Parliament can impeach judges for misconduct."
+            },
+            {
+                unit: "unit2",
+                question: "The term 'Judicial Review' in the Indian context means:",
+                options: [
+                    "Review of judgments by higher courts",
+                    "Power of the judiciary to examine the constitutionality of legislative and executive actions",
+                    "Annual review of judicial performance by the President",
+                    "Review of court procedures by the Law Commission"
+                ],
+                correct: 1,
+                explanation: "Judicial review is the power of the judiciary to examine whether legislative enactments or executive actions are in conformity with the Constitution and to declare them null and void if they violate constitutional provisions."
+            },
+            {
+                unit: "unit2",
+                question: "The President of India can be removed from office by:",
+                options: [
+                    "Prime Minister's advice",
+                    "Impeachment",
+                    "Vote of no-confidence in Lok Sabha",
+                    "Majority vote in Rajya Sabha"
+                ],
+                correct: 1,
+                explanation: "The President can be removed from office by impeachment for violation of the Constitution. The impeachment process can be initiated in either House of Parliament."
+            },
+            {
+                unit: "unit2",
+                question: "The Council of Ministers is collectively responsible to:",
+                options: [
+                    "The President",
+                    "The Prime Minister",
+                    "The Lok Sabha",
+                    "The Rajya Sabha"
+                ],
+                correct: 2,
+                explanation: "According to Article 75(3), the Council of Ministers is collectively responsible to the Lok Sabha. This means that all ministers share the responsibility for decisions of the cabinet and must resign if the Lok Sabha passes a no-confidence motion."
+            },
+            {
+                unit: "unit2",
+                question: "The maximum strength of the Lok Sabha as per the Constitution is:",
+                options: [
+                    "500",
+                    "545",
+                    "550",
+                    "552"
+                ],
+                correct: 3,
+                explanation: "As per Article 81, the maximum strength of the Lok Sabha is 552 - 530 members from states, 20 from Union Territories, and 2 nominated members from the Anglo-Indian community (though this provision has been discontinued by the 104th Amendment Act, 2019)."
+            },
+            {
+                unit: "unit2",
+                question: "The Speaker of the Lok Sabha is elected by:",
+                options: [
+                    "The President",
+                    "The Prime Minister",
+                    "All members of Parliament",
+                    "All members of the Lok Sabha"
+                ],
+                correct: 3,
+                explanation: "The Speaker of the Lok Sabha is elected by the members of the Lok Sabha from among themselves. Usually, the election takes place in the first meeting after the general elections."
+            },
+            {
+                unit: "unit2",
+                question: "Which of the following is NOT a power of the Supreme Court?",
+                options: [
+                    "Original jurisdiction",
+                    "Appellate jurisdiction",
+                    "Advisory jurisdiction",
+                    "Executive jurisdiction"
+                ],
+                correct: 3,
+                explanation: "The Supreme Court has original jurisdiction (cases that can be directly filed in SC), appellate jurisdiction (appeals against lower court decisions), and advisory jurisdiction (advising the President on legal matters), but it does not have executive jurisdiction."
+            },
+            {
+                unit: "unit2",
+                question: "The President of India can promulgate ordinances when:",
+                options: [
+                    "Parliament is in session",
+                    "Lok Sabha is dissolved",
+                    "Parliament is not in session",
+                    "Rajya Sabha is adjourned"
+                ],
+                correct: 2,
+                explanation: "According to Article 123, the President can promulgate ordinances when both Houses of Parliament are not in session. Ordinances have the same force as an act of Parliament but must be approved by Parliament within 6 weeks of reassembly."
+            },
+            {
+                unit: "unit2",
+                question: "The Vice-President of India is the ex-officio Chairman of:",
+                options: [
+                    "Planning Commission",
+                    "Rajya Sabha",
+                    "Lok Sabha",
+                    "National Development Council"
+                ],
+                correct: 1,
+                explanation: "The Vice-President of India is the ex-officio Chairman of the Rajya Sabha (Article 64). He presides over the sessions of the Rajya Sabha but is not a member of the House."
+            },
+            {
+                unit: "unit2",
+                question: "The term of office of the President of India is:",
+                options: [
+                    "4 years",
+                    "5 years",
+                    "6 years",
+                    "During the pleasure of the Prime Minister"
+                ],
+                correct: 1,
+                explanation: "The President of India holds office for a term of 5 years from the date on which he enters office (Article 56). However, he can continue beyond his term until his successor assumes office."
+            },
+            {
+                unit: "unit2",
+                question: "The Parliament of India consists of:",
+                options: [
+                    "Lok Sabha and Rajya Sabha",
+                    "President, Lok Sabha and Rajya Sabha",
+                    "Prime Minister, Lok Sabha and Rajya Sabha",
+                    "Council of Ministers, Lok Sabha and Rajya Sabha"
+                ],
+                correct: 1,
+                explanation: "According to Article 79, the Parliament of India consists of the President and the two Houses - Lok Sabha (House of the People) and Rajya Sabha (Council of States)."
+            },
+            {
+                unit: "unit2",
+                question: "A money bill can be introduced only in:",
+                options: [
+                    "Rajya Sabha",
+                    "Lok Sabha",
+                    "Either House with President's permission",
+                    "Joint sitting of both Houses"
+                ],
+                correct: 1,
+                explanation: "According to Article 109, a money bill can be introduced only in the Lok Sabha and that too on the recommendation of the President."
+            },
+            {
+                unit: "unit2",
+                question: "The concept of 'Public Interest Litigation' originated in:",
+                options: [
+                    "United States",
+                    "United Kingdom",
+                    "India",
+                    "Canada"
+                ],
+                correct: 2,
+                explanation: "The concept of Public Interest Litigation (PIL) originated in India in the early 1980s. It was introduced by Justice P.N. Bhagwati and Justice V.R. Krishna Iyer as a means to provide access to justice to the poor and marginalized sections of society."
+            },
+            {
+                unit: "unit2",
+                question: "The minimum age required to become a member of the Lok Sabha is:",
+                options: [
+                    "21 years",
+                    "25 years",
+                    "30 years",
+                    "35 years"
+                ],
+                correct: 1,
+                explanation: "According to Article 84, the minimum age for becoming a member of the Lok Sabha is 25 years, while for Rajya Sabha it is 30 years."
+            },
+            {
+                unit: "unit2",
+                question: "The President can dismiss a Minister on the advice of:",
+                options: [
+                    "Chief Justice of India",
+                    "Prime Minister",
+                    "Speaker of Lok Sabha",
+                    "Majority of Parliament"
+                ],
+                correct: 1,
+                explanation: "The President can appoint and dismiss ministers only on the advice of the Prime Minister (Article 75)."
+            },
+            {
+                unit: "unit2",
+                question: "The Supreme Court of India was established on:",
+                options: [
+                    "January 26, 1950",
+                    "August 15, 1947",
+                    "November 26, 1949",
+                    "December 9, 1946"
+                ],
+                correct: 0,
+                explanation: "The Supreme Court of India came into existence on January 26, 1950, the day the Constitution came into force. It replaced the Federal Court of India established under the Government of India Act, 1935."
+            },
+            {
+                unit: "unit2",
+                question: "The 'Question Hour' in the Parliament refers to:",
+                options: [
+                    "The first hour of each sitting where members ask questions to ministers",
+                    "The hour when the President addresses Parliament",
+                    "The hour dedicated to discussing emergency matters",
+                    "The final hour of sitting for voting on bills"
+                ],
+                correct: 0,
+                explanation: "The Question Hour is the first hour of every parliamentary sitting where members ask questions and ministers give answers. It is an important mechanism for exercising control over the executive."
+            },
+            {
+                unit: "unit2",
+                question: "The President of India can be re-elected for:",
+                options: [
+                    "Only one more term",
+                    "Any number of terms",
+                    "Cannot be re-elected",
+                    "Only with 2/3rd majority of Parliament"
+                ],
+                correct: 1,
+                explanation: "According to Article 57, the President of India is eligible for re-election to the office. There is no limit on the number of terms a person can serve as President."
+            },
+            {
+                unit: "unit2",
+                question: "The 'No-Confidence Motion' in the Lok Sabha can be moved against:",
+                options: [
+                    "The President",
+                    "An individual Minister",
+                    "The entire Council of Ministers",
+                    "The Speaker"
+                ],
+                correct: 2,
+                explanation: "A no-confidence motion can be moved against the entire Council of Ministers. If passed, it means the government has lost the confidence of the Lok Sabha and must resign."
+            },
+            {
+                unit: "unit2",
+                question: "The 'Zero Hour' in the Indian Parliament is:",
+                options: [
+                    "The time when the Parliament starts its daily sitting",
+                    "The time when important bills are discussed",
+                    "An informal device for raising matters without prior notice",
+                    "The time when the President addresses Parliament"
+                ],
+                correct: 2,
+                explanation: "Zero Hour is an informal device available to members of Parliament to raise matters without any prior notice. It starts immediately after the Question Hour and lasts until the agenda for the day is taken up."
+            },
+            {
+                unit: "unit2",
+                question: "The 'Collegium System' for appointment of judges is related to:",
+                options: [
+                    "Recommendation by a body of senior judges for judicial appointments",
+                    "Selection by a committee of Parliament members",
+                    "Appointment by the President in consultation with the Prime Minister",
+                    "Election by fellow judges"
+                ],
+                correct: 0,
+                explanation: "The Collegium System is the system under which appointments and transfers of judges are decided by a forum of the Chief Justice of India and the four senior-most judges of the Supreme Court. This system evolved through the Three Judges Cases."
+            },
+            {
+                unit: "unit2",
+                question: "The 'Doctrine of Separation of Powers' in the Indian context means:",
+                options: [
+                    "Complete separation of legislative, executive and judicial powers",
+                    "Partial separation with checks and balances",
+                    "Supremacy of the judiciary over other organs",
+                    "Executive control over judiciary and legislature"
+                ],
+                correct: 1,
+                explanation: "Unlike the US Constitution, the Indian Constitution does not provide for absolute separation of powers. Instead, it follows a system of checks and balances where there is partial separation with each organ having some control over the others."
+            },
+
+            // Unit III: Fundamental Rights and Directive Principles (30 Questions)
+            {
+                unit: "unit3",
+                question: "Which part of the Indian Constitution contains the Fundamental Rights?",
+                options: [
+                    "Part III",
+                    "Part IV",
+                    "Part I",
+                    "Part V"
+                ],
+                correct: 0,
+                explanation: "Fundamental Rights are enshrined in Part III (Articles 12-35) of the Indian Constitution."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following is NOT a Fundamental Right?",
+                options: [
+                    "Right to Equality",
+                    "Right to Freedom of Religion",
+                    "Right to Property",
+                    "Right against Exploitation"
+                ],
+                correct: 2,
+                explanation: "Right to Property was originally a Fundamental Right under Article 31, but it was removed from the list of Fundamental Rights by the 44th Constitutional Amendment Act, 1978. It is now a legal right under Article 300A."
+            },
+            {
+                unit: "unit3",
+                question: "Directive Principles of State Policy are contained in which part of the Constitution?",
+                options: [
+                    "Part III",
+                    "Part IV",
+                    "Part V",
+                    "Part VI"
+                ],
+                correct: 1,
+                explanation: "Directive Principles of State Policy are contained in Part IV (Articles 36-51) of the Indian Constitution."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following best describes the nature of Directive Principles of State Policy?",
+                options: [
+                    "Justiciable and enforceable by courts",
+                    "Non-justiciable but fundamental in governance",
+                    "Optional guidelines for states",
+                    "Temporary provisions to be reviewed every 10 years"
+                ],
+                correct: 1,
+                explanation: "Directive Principles are non-justiciable, meaning they are not enforceable by courts, but Article 37 states that they are 'fundamental in the governance of the country' and it is the duty of the State to apply them in making laws."
+            },
+            {
+                unit: "unit3",
+                question: "In case of conflict between Fundamental Rights and Directive Principles, which prevails?",
+                options: [
+                    "Directive Principles always prevail",
+                    "Fundamental Rights generally prevail",
+                    "The President decides",
+                    "Parliament decides by simple majority"
+                ],
+                correct: 1,
+                explanation: "In case of conflict, Fundamental Rights generally prevail over Directive Principles as Fundamental Rights are enforceable by courts while Directive Principles are not. However, in certain cases where laws implementing Directive Principles are challenged, courts have sometimes upheld them if they reasonably restrict Fundamental Rights."
+            },
+            {
+                unit: "unit3",
+                question: "Which amendment added the Fundamental Duties to the Constitution?",
+                options: [
+                    "42nd Amendment",
+                    "44th Amendment",
+                    "73rd Amendment",
+                    "86th Amendment"
+                ],
+                correct: 0,
+                explanation: "The 42nd Constitutional Amendment Act, 1976 added Part IVA containing Article 51A on Fundamental Duties to the Constitution."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following Directive Principles was added by the 42nd Amendment?",
+                options: [
+                    "Equal justice and free legal aid",
+                    "Participation of workers in management of industries",
+                    "Protection of environment",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "The 42nd Amendment Act, 1976 added several new Directive Principles including Article 39A (equal justice and free legal aid), Article 43A (participation of workers in management of industries), and Article 48A (protection and improvement of environment)."
+            },
+            {
+                unit: "unit3",
+                question: "The Right to Education for children between 6-14 years is a:",
+                options: [
+                    "Directive Principle of State Policy",
+                    "Fundamental Right",
+                    "Legal Right",
+                    "Moral Right"
+                ],
+                correct: 1,
+                explanation: "The 86th Constitutional Amendment Act, 2002 made education a Fundamental Right by adding Article 21A, which provides for free and compulsory education to all children between 6-14 years."
+            },
+            {
+                unit: "unit3",
+                question: "Which article provides for 'Equal justice and free legal aid'?",
+                options: [
+                    "Article 14",
+                    "Article 21",
+                    "Article 39A",
+                    "Article 44"
+                ],
+                correct: 2,
+                explanation: "Article 39A, added by the 42nd Amendment in 1976, provides for equal justice and free legal aid to ensure that opportunities for securing justice are not denied to any citizen due to economic or other disabilities."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following best describes the relationship between Fundamental Rights and Directive Principles?",
+                options: [
+                    "They are completely independent of each other",
+                    "Directive Principles are superior to Fundamental Rights",
+                    "They are complementary to each other",
+                    "Fundamental Rights are meant to be replaced by Directive Principles"
+                ],
+                correct: 2,
+                explanation: "The Supreme Court has held in various cases that Fundamental Rights and Directive Principles are complementary and supplementary to each other. They together constitute an integrated scheme for the socio-economic justice envisioned in the Preamble."
+            },
+            {
+                unit: "unit3",
+                question: "The Fundamental Right to 'Freedom of Speech and Expression' is guaranteed under which Article?",
+                options: [
+                    "Article 14",
+                    "Article 19(1)(a)",
+                    "Article 21",
+                    "Article 25"
+                ],
+                correct: 1,
+                explanation: "Article 19(1)(a) guarantees the Fundamental Right to freedom of speech and expression to all citizens. However, this right is subject to reasonable restrictions under Article 19(2)."
+            },
+            {
+                unit: "unit3",
+                question: "Which Article of the Constitution abolishes untouchability?",
+                options: [
+                    "Article 14",
+                    "Article 15",
+                    "Article 16",
+                    "Article 17"
+                ],
+                correct: 3,
+                explanation: "Article 17 abolishes untouchability and forbids its practice in any form. The enforcement of any disability arising out of untouchability is an offense punishable by law."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Right to Constitutional Remedies' is provided under which Article?",
+                options: [
+                    "Article 32",
+                    "Article 36",
+                    "Article 50",
+                    "Article 51"
+                ],
+                correct: 0,
+                explanation: "Article 32 provides the right to constitutional remedies, which Dr. B.R. Ambedkar called the 'heart and soul' of the Constitution. It empowers individuals to approach the Supreme Court for the enforcement of their Fundamental Rights."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following is NOT a Directive Principle of State Policy?",
+                options: [
+                    "To secure a uniform civil code",
+                    "To protect the environment",
+                    "To provide free and compulsory education to children",
+                    "To ensure freedom of speech and expression"
+                ],
+                correct: 3,
+                explanation: "Freedom of speech and expression is a Fundamental Right under Article 19(1)(a), not a Directive Principle. The other options are Directive Principles - uniform civil code (Article 44), protection of environment (Article 48A), and education (Article 45, now also Article 21A as Fundamental Right)."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Writ of Habeas Corpus' is issued to:",
+                options: [
+                    "Prevent a person from holding a public office to which he is not entitled",
+                    "Command a public authority to perform its public duty",
+                    "Release a person who has been detained unlawfully",
+                    "Prohibit a lower court from proceeding with a case"
+                ],
+                correct: 2,
+                explanation: "Habeas Corpus (meaning 'to have the body') is a writ issued to produce a person who has been detained before the court. If the detention is found to be unlawful, the court orders the release of the person."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following is NOT a Fundamental Duty under Article 51A?",
+                options: [
+                    "To abide by the Constitution and respect its ideals",
+                    "To defend the country when called upon to do so",
+                    "To pay taxes",
+                    "To safeguard public property"
+                ],
+                correct: 2,
+                explanation: "Paying taxes is a legal obligation but not a Fundamental Duty under Article 51A. The Fundamental Duties include abiding by the Constitution, defending the country, safeguarding public property, etc."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Right to Privacy' has been recognized as a Fundamental Right under which Article?",
+                options: [
+                    "Article 14",
+                    "Article 19",
+                    "Article 21",
+                    "Article 25"
+                ],
+                correct: 2,
+                explanation: "In the landmark judgment of Justice K.S. Puttaswamy (Retd.) vs Union of India (2017), the Supreme Court recognized the right to privacy as a Fundamental Right under Article 21 (Right to Life and Personal Liberty)."
+            },
+            {
+                unit: "unit3",
+                question: "Which Article provides for 'Equal Protection of Laws'?",
+                options: [
+                    "Article 14",
+                    "Article 15",
+                    "Article 16",
+                    "Article 19"
+                ],
+                correct: 0,
+                explanation: "Article 14 guarantees to all persons 'equality before the law' and 'equal protection of the laws' within the territory of India. This right is available to both citizens and non-citizens."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Doctrine of Eclipse' is related to:",
+                options: [
+                    "The effect of Directive Principles on Fundamental Rights",
+                    "The effect of a law inconsistent with Fundamental Rights",
+                    "The relationship between Union and State laws",
+                    "The amendment procedure of the Constitution"
+                ],
+                correct: 1,
+                explanation: "The Doctrine of Eclipse states that a pre-constitutional law which violates Fundamental Rights is not null and void ab initio but becomes unenforceable (remains 'eclipsed') until the Fundamental Right is amended or removed."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following rights is available to both citizens and foreigners in India?",
+                options: [
+                    "Right to equality before law",
+                    "Right to freedom of speech and expression",
+                    "Right to hold public office",
+                    "Right to vote"
+                ],
+                correct: 0,
+                explanation: "Article 14 (right to equality before law and equal protection of laws) is available to all persons including foreigners. Most other Fundamental Rights under Article 19 are available only to citizens."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Uniform Civil Code' mentioned in the Directive Principles (Article 44) refers to:",
+                options: [
+                    "One law for all crimes",
+                    "One set of personal laws for all citizens irrespective of religion",
+                    "Uniform commercial laws across states",
+                    "Uniform taxation system"
+                ],
+                correct: 1,
+                explanation: "Article 44 directs the state to secure for all citizens a Uniform Civil Code throughout the territory of India, meaning one set of personal laws governing matters like marriage, divorce, inheritance, etc., irrespective of religion."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following is NOT a ground for reasonable restrictions on freedom of speech and expression under Article 19(2)?",
+                options: [
+                    "Security of the State",
+                    "Friendly relations with foreign states",
+                    "Contempt of court",
+                    "Economic inequality"
+                ],
+                correct: 3,
+                explanation: "Article 19(2) allows reasonable restrictions on freedom of speech and expression on grounds of: security of the State, friendly relations with foreign states, public order, decency or morality, contempt of court, defamation, and incitement to an offense. Economic inequality is not a ground."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Right to Information' in India is primarily based on:",
+                options: [
+                    "Article 19(1)(a) - Freedom of Speech and Expression",
+                    "Article 21 - Right to Life and Personal Liberty",
+                    "Article 32 - Right to Constitutional Remedies",
+                    "Article 51A - Fundamental Duties"
+                ],
+                correct: 0,
+                explanation: "The Right to Information is derived from the Fundamental Right to freedom of speech and expression under Article 19(1)(a), as one cannot form an informed opinion without access to information. This was recognized by the Supreme Court and later codified in the RTI Act, 2005."
+            },
+            {
+                unit: "unit3",
+                question: "Which Article prohibits discrimination on grounds of religion, race, caste, sex or place of birth?",
+                options: [
+                    "Article 14",
+                    "Article 15",
+                    "Article 16",
+                    "Article 17"
+                ],
+                correct: 1,
+                explanation: "Article 15 prohibits discrimination on grounds of religion, race, caste, sex or place of birth. It is available only to citizens."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Preventive Detention' laws in India are an exception to which Fundamental Right?",
+                options: [
+                    "Right to Equality",
+                    "Right to Freedom",
+                    "Right against Exploitation",
+                    "Right to Constitutional Remedies"
+                ],
+                correct: 1,
+                explanation: "Preventive detention laws allow detention of a person without trial to prevent them from committing an offense. This is an exception to the Right to Freedom (Article 22) which provides protection against arrest and detention."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following is NOT a Directive Principle related to Gandhian principles?",
+                options: [
+                    "Organization of village panchayats",
+                    "Promotion of cottage industries",
+                    "Separation of judiciary from executive",
+                    "Prohibition of intoxicating drinks and drugs"
+                ],
+                correct: 2,
+                explanation: "Separation of judiciary from executive (Article 50) is not specifically a Gandhian principle but is based on the principle of separation of powers. The other options - village panchayats (Article 40), cottage industries (Article 43), and prohibition (Article 47) - are based on Gandhian ideas."
+            },
+            {
+                unit: "unit3",
+                question: "The 'National Human Rights Commission' was established to protect which of the following?",
+                options: [
+                    "Only Fundamental Rights",
+                    "Only Directive Principles",
+                    "Human rights including Fundamental Rights",
+                    "Only rights of minorities"
+                ],
+                correct: 2,
+                explanation: "The National Human Rights Commission (NHRC) was established under the Protection of Human Rights Act, 1993 to protect human rights, which are defined as 'rights relating to life, liberty, equality and dignity of the individual guaranteed by the Constitution or embodied in the International Covenants'. This includes but is not limited to Fundamental Rights."
+            },
+            {
+                unit: "unit3",
+                question: "Which Article provides for 'Protection of interests of minorities'?",
+                options: [
+                    "Article 28",
+                    "Article 29",
+                    "Article 30",
+                    "Both Article 29 and 30"
+                ],
+                correct: 3,
+                explanation: "Both Article 29 (protection of interests of minorities) and Article 30 (right of minorities to establish and administer educational institutions) provide for the protection of minority interests."
+            },
+            {
+                unit: "unit3",
+                question: "The 'Right to Education Act, 2009' implements which Constitutional provision?",
+                options: [
+                    "Article 21A",
+                    "Article 45",
+                    "Both Article 21A and Article 45",
+                    "Article 39"
+                ],
+                correct: 2,
+                explanation: "The Right to Education Act, 2009 implements both Article 21A (which was added by the 86th Amendment in 2002 making education a Fundamental Right for children aged 6-14) and Article 45 (Directive Principle which originally aimed to provide free and compulsory education for children until they complete the age of 14 years within 10 years from the commencement of the Constitution)."
+            },
+            {
+                unit: "unit3",
+                question: "Which of the following writs can be issued against a private individual?",
+                option: [
+                    "Habeas Corpus",
+                    "Mandamus",
+                    "Prohibition",
+                    "Certiorari"
+                ],
+                correct: 0,
+                explanation: "Habeas Corpus is the only writ that can be issued against a private individual. The other writs (Mandamus, Prohibition, Certiorari) can be issued only against public authorities or bodies performing public functions."
+            }
+        ];
+
+        // DOM elements
+        const questionsContainer = document.getElementById('questions-container');
+        const scoreElement = document.getElementById('score');
+        const totalElement = document.getElementById('total');
+        const progressElement = document.getElementById('progress');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const showAnswerBtn = document.getElementById('show-answer-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const unitButtons = document.querySelectorAll('.unit-btn');
+        const timerElement = document.getElementById('timer');
+        const completedMessage = document.getElementById('completed-message');
+        const finalScoreElement = document.getElementById('final-score');
+        const finalTotalElement = document.getElementById('final-total');
+        const percentageElement = document.getElementById('percentage');
+        const finalTimeElement = document.getElementById('final-time');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let answered = new Array(questions.length).fill(false);
+        let timerInterval;
+        let seconds = 0;
+        let filteredQuestions = [...questions];
+
+        // Initialize timer
+        function startTimer() {
+            clearInterval(timerInterval); // Clear any existing timer
+            seconds = 0;
+            timerElement.textContent = 'Time: 00:00';
+            timerInterval = setInterval(() => {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Format time
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Filter questions by unit
+        function filterQuestions(unit) {
+            if (unit === 'all') {
+                filteredQuestions = [...questions];
+            } else {
+                filteredQuestions = questions.filter(q => q.unit === unit);
+            }
+            
+            // Reset state for filtered questions
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            answered = new Array(questions.length).fill(false);
+            
+            // Reinitialize
+            totalElement.textContent = filteredQuestions.length;
+            renderQuestions();
+            updateScore();
+            updateButtons();
+            
+            // Show/hide completed message
+            completedMessage.style.display = 'none';
+            
+            // Restart timer
+            startTimer();
+        }
+
+        // Render all questions
+        function renderQuestions() {
+            questionsContainer.innerHTML = '';
+            
+            filteredQuestions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.dataset.index = index;
+                
+                const questionText = document.createElement('h3');
+                questionText.textContent = `${index + 1}. ${question.question}`;
+                questionDiv.appendChild(questionText);
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                
+                question.options.forEach((option, optionIndex) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    optionDiv.dataset.option = optionIndex;
+                    optionDiv.textContent = `${String.fromCharCode(65 + optionIndex)}. ${option}`;
+                    
+                    optionDiv.addEventListener('click', () => selectOption(index, optionIndex, optionDiv));
+                    optionsDiv.appendChild(optionDiv);
+                });
+                
+                questionDiv.appendChild(optionsDiv);
+                
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.className = 'feedback';
+                questionDiv.appendChild(feedbackDiv);
+                
+                questionsContainer.appendChild(questionDiv);
+            });
+            
+            // Show only the first question initially
+            const allQuestions = questionsContainer.querySelectorAll('.question');
+            allQuestions.forEach((q, i) => {
+                q.style.display = i === 0 ? 'block' : 'none';
+            });
+        }
+
+        // Initialize
+        function initQuiz() {
+            totalElement.textContent = filteredQuestions.length;
+            showQuestion(currentQuestionIndex);
+            updateScore();
+            updateButtons();
+            startTimer();
+        }
+
+        // Show specific question
+        function showQuestion(index) {
+            const allQuestions = questionsContainer.querySelectorAll('.question');
+            allQuestions.forEach((q, i) => {
+                q.style.display = i === index ? 'block' : 'none';
+            });
+            
+            // Scroll to top
+            window.scrollTo({
+                top: questionsContainer.offsetTop - 100,
+                behavior: 'smooth'
+            });
+            
+            updateButtons();
+        }
+
+        // Select an option
+        function selectOption(questionIndex, optionIndex, optionElement) {
+            // Find the actual index in the original questions array
+            const actualQuestion = filteredQuestions[questionIndex];
+            const actualIndex = questions.findIndex(q => q === actualQuestion);
+            
+            // Clear previous selections
+            const options = optionElement.parentElement.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            optionElement.classList.add('selected');
+            
+            // Store user answer
+            userAnswers[actualIndex] = optionIndex;
+            answered[actualIndex] = true;
+            
+            // Check if answer is correct
+            if (optionIndex === filteredQuestions[questionIndex].correct) {
+                optionElement.classList.add('correct');
+                if (!answered[actualIndex] || userAnswers[actualIndex] !== optionIndex) {
+                    score++;
+                    updateScore();
+                }
+            } else {
+                optionElement.classList.add('incorrect');
+                if (answered[actualIndex] && userAnswers[actualIndex] === filteredQuestions[questionIndex].correct) {
+                    score--;
+                    updateScore();
+                }
+            }
+            
+            // Check if all questions are answered
+            if (answered.filter((a, i) => filteredQuestions.some(fq => fq === questions[i])).every(a => a)) {
+                showCompletedMessage();
+            }
+            
+            updateButtons();
+        }
+
+        // Show answer for current question
+        function showAnswer() {
+            const actualQuestion = filteredQuestions[currentQuestionIndex];
+            const actualIndex = questions.findIndex(q => q === actualQuestion);
+            const questionDiv = questionsContainer.querySelector(`.question[data-index="${currentQuestionIndex}"]`);
+            const options = questionDiv.querySelectorAll('.option');
+            const feedbackDiv = questionDiv.querySelector('.feedback');
+            
+            // Clear previous selections
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark correct answer
+            const correctOption = filteredQuestions[currentQuestionIndex].correct;
+            options[correctOption].classList.add('correct');
+            
+            // Show explanation
+            feedbackDiv.textContent = filteredQuestions[currentQuestionIndex].explanation;
+            feedbackDiv.className = 'feedback correct-feedback';
+            feedbackDiv.style.display = 'block';
+            
+            // If user hasn't answered, mark as answered incorrectly
+            if (!answered[actualIndex]) {
+                answered[actualIndex] = true;
+                userAnswers[actualIndex] = -1; // Mark as shown answer
+                updateScore();
+            }
+            
+            // Check if all questions are answered
+            if (answered.filter((a, i) => filteredQuestions.some(fq => fq === questions[i])).every(a => a)) {
+                showCompletedMessage();
+            }
+            
+            updateButtons();
+        }
+
+        // Show completed message
+        function showCompletedMessage() {
+            completedMessage.style.display = 'block';
+            finalScoreElement.textContent = score;
+            finalTotalElement.textContent = filteredQuestions.length;
+            const percentage = ((score / filteredQuestions.length) * 100).toFixed(2);
+            percentageElement.textContent = percentage;
+            finalTimeElement.textContent = formatTime(seconds);
+            
+            // Stop timer
+            clearInterval(timerInterval);
+        }
+
+        // Update score display
+        function updateScore() {
+            scoreElement.textContent = score;
+            const percentage = filteredQuestions.length > 0 ? (score / filteredQuestions.length) * 100 : 0;
+            progressElement.style.width = `${percentage}%`;
+        }
+
+        // Update button states
+        function updateButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = currentQuestionIndex === filteredQuestions.length - 1;
+            
+            const actualQuestion = filteredQuestions[currentQuestionIndex];
+            const actualIndex = questions.findIndex(q => q === actualQuestion);
+            showAnswerBtn.disabled = answered[actualIndex];
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < filteredQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        showAnswerBtn.addEventListener('click', showAnswer);
+
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset the quiz? Your progress will be lost.')) {
+                // Reset state
+                score = 0;
+                userAnswers = new Array(questions.length).fill(null);
+                answered = new Array(questions.length).fill(false);
+                currentQuestionIndex = 0;
+                seconds = 0;
+                timerElement.textContent = 'Time: 00:00';
+                
+                // Clear and restart timer
+                clearInterval(timerInterval);
+                startTimer();
+                
+                // Hide completed message
+                completedMessage.style.display = 'none';
+                
+                // Re-render and update
+                renderQuestions();
+                updateScore();
+                updateButtons();
+            }
+        });
+
+        // Unit filter buttons
+        unitButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                unitButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterQuestions(btn.dataset.unit);
+            });
+        });
+
+        // Restart button
+        restartBtn.addEventListener('click', () => {
+            completedMessage.style.display = 'none';
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            answered = new Array(questions.length).fill(false);
+            currentQuestionIndex = 0;
+            seconds = 0;
+            timerElement.textContent = 'Time: 00:00';
+            
+            // Clear and restart timer
+            clearInterval(timerInterval);
+            startTimer();
+            
+            // Re-render and update
+            renderQuestions();
+            updateScore();
+            updateButtons();
+        });
+
+        // Initialize quiz on page load
+        window.addEventListener('load', () => {
+            renderQuestions();
+            initQuiz();
+        });
+    </script>
+</body>
+</html>
